@@ -28,7 +28,7 @@ for i in range(0, int(skips)):
     page_found = False
     while (page_found == False):
         time.sleep(1)
-        skip = pg.locateOnScreen('skip.png', confidence=0.9)
+        skip = pg.locateOnScreen('skip_light.png', confidence=0.9)
         print(skip, looper)
         if skip != None:
             page_found = True
@@ -42,17 +42,17 @@ for i in range(0, int(skips)):
             pg.keyUp("tab")
         pg.keyUp("command")
 
-    skip = pg.locateOnScreen('skip.png', confidence = 0.9)
+    skip = pg.locateOnScreen('skip_light.png', confidence = 0.9)
     location = coordinate(skip.left, skip.top, skip.width, skip.height)
     pg.moveTo(location[0],location[1], duration = 0.25)
     pg.click()
 
-    reason = pg.locateOnScreen('reason.png',confidence = 0.9)
+    reason = pg.locateOnScreen('reason_dark.png',confidence = 0.9)
     location = coordinate(reason.left, reason.top,reason.width, reason.height)
     pg.moveTo(location[0], location[1], duration = 0.25)
     pg.click()
 
-    final_skip = pg.locateOnScreen('final_skip.png',confidence = 0.9)
+    final_skip = pg.locateOnScreen('final_skip_dark.png',confidence = 0.9)
     location = coordinate(final_skip.left, final_skip.top, final_skip.width, final_skip.height)
     pg.moveTo(location[0], location[1], duration = 0.25)
     pg.click()
