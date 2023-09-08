@@ -14,11 +14,12 @@ def coordinate(top_left_x, top_left_y, width, height):
 
 
 hours = int(input("enter number of hours = "))
-interval = 20
+interval = 30
 skips = hours * (60 / interval)
-skip_time = 20 * 60
+skip_time = 30 * 60
+first_skip_time = int(17.5 * 60)
+second_skip_time = int(12.5 * 60)
 
-blocks = skip_time
 print("total skips = ", skips)
 
 time.sleep(3)
@@ -26,15 +27,49 @@ time.sleep(3)
 for i in range(0, int(skips)):
     print("current skip number = ", i)
     # print("|", end = "")
-    for i in range(0, skip_time):
+    for i in range(0, first_skip_time):
         if i % 60 == 0:
             print("|", end="")
         time.sleep(1)
-    print("")
+    # print("")
     # time.sleep(skip_time)
 
     looper = 0
     page_found = False
+    while (page_found == False):
+        time.sleep(1)
+        still_here = pg.locateOnScreen('still_here_dark.png', confidence = 0.9)
+        if still_here != None:
+            page_found = True
+            break
+        else:
+            looper+=1
+        pg.keyDown("command")
+        for i in range(0, looper):
+            pg.keyDown("tab")
+            pg.keyUp("tab")
+        pg.keyUp("command")
+    still_here = pg.locateOnScreen('still_here_dark.png', confidence = 0.9)
+    location = coordinate(still_here.left, still_here.top, still_here.width, still_here.height)
+    pg.moveTo(location[0], location[1], duration = 0.25)
+    pg.click()
+
+    time.sleep(1)
+    pg.keyDown("command")
+    for i in range(0, looper):
+        pg.keyDown("tab")
+        pg.keyUp("tab")
+    pg.keyUp("command")
+
+    for i in range(0, second_skip_time):
+        if i % 60 == 0:
+            print("|", end="")
+        time.sleep(1)
+    print("")
+
+    page_found = False
+    looper = 0
+
     while (page_found == False):
         time.sleep(1)
         skip = pg.locateOnScreen('skip_dark.png', confidence=0.9)
